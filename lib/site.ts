@@ -3,6 +3,9 @@
  * is labelled as such in the UI (see `example: true`).
  * Public values can be overridden with NEXT_PUBLIC_* environment variables.
  */
+/** Absolute public address: canonical, hreflang, Open Graph and the sitemap. */
+export const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://avivi.kikkey.com').replace(/\/$/, '');
+
 export const site = {
   name: { he: 'אביבי מטבחים', en: 'Avivi Kitchens', ru: 'Avivi Kitchens', fr: 'Avivi Kitchens' },
   domain: 'avivi.com',

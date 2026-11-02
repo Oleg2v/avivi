@@ -73,6 +73,18 @@ const CARE_NOUNS = rx('marble|quartz|\\bstone|countertop|worktop|surface', `(?:^
 
 const INTENTS: Intent[] = [
   {
+    id: 'identity',
+    match: rx('which (?:ai|model)|what (?:ai|model)|who (?:made|built|created|are) you|what are you\\?|are you (?:a )?(?:bot|robot|ai|human|real person)|chat\\s?gpt|claude|open\\s?ai|anthropic|\\bgpt\\b|gemini|language model', 'איזה מודל|מי אתה|מי בנה אותך|בינה מלאכותית', hw('בוט'), 'кто ты|ты кто|какая модель|ты бот|нейросет|искусственный интеллект', 'qui es-tu|quel modèle|es-tu un robot|intelligence artificielle'),
+    reply: {
+      he: 'אני המעצב של אביבי, עוזר התכנון באתר של אביבי מטבחים. אני עוזר בתכנון, בחומרים, באחסון ובהכנה לביקור באולם, ובכל רגע אפשר לעבור לנציג אנושי.',
+      en: 'I’m Avivi Designer, the design assistant on the Avivi Kitchens website. I help with layouts, materials, storage and preparing your showroom visit, and a person can take over at any moment.',
+      ru: 'Я Avivi Designer, помощник по дизайну на сайте Avivi Kitchens. Помогаю с планировкой, материалами, хранением и подготовкой к визиту в салон, а в любой момент можно перейти к живому сотруднику.',
+      fr: 'Je suis Avivi Designer, l’assistant de conception du site Avivi Kitchens. J’aide pour les plans, les matériaux, le rangement et la préparation de votre visite, et une personne peut prendre le relais à tout moment.',
+    },
+    cards: (l) => [tool.planner(l), tool.book(l)],
+    suggest: [S.small, S.bring, S.human],
+  },
+  {
     id: 'human',
     match: rx('human|\\bperson\\b|real person|representative|call me|\\bagent\\b|speak to someone|talk to someone', hw('נציג|נציגה|בן אדם|אדם אמיתי'), 'לדבר עם|תתקשרו|שיחה עם', 'человек|оператор|позвоните|менеджер|консультант', 'humain|personne|conseill|appelez|parler à'),
     reply: {

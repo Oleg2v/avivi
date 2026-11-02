@@ -1,0 +1,22 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  // Cloudflare Workers deployment through the OpenNext adapter for Next.js: `npm run deploy:cf`.
+  // The dashboard Worker name must match this name when the repository is connected to Workers Builds.
+  "name": "avivi",
+  // Cloudflare account that hosts the site; the deploy token can see more than one account.
+  "account_id": "be9447e281c6e9198712ade2d0241029",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-11-01",
+  // nodejs_compat for the API routes (crypto, buffers); global_fetch_strictly_public as the adapter recommends.
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  // Static files and the prerendered pages (read-only cache), built into .open-next/assets.
+  // No R2, KV, D1 or Images binding: nothing extra is provisioned in the account.
+  "assets": { "directory": ".open-next/assets", "binding": "ASSETS" },
+  // Keep variables added in the dashboard (Settings > Variables and Secrets) across deploys.
+  "keep_vars": true,
+  // Served only from the custom domain; the account-wide workers.dev address and version preview URLs stay off.
+  "routes": [{ "pattern": "avivi.kikkey.com", "custom_domain": true }],
+  "workers_dev": false,
+  "preview_urls": false,
+  "observability": { "enabled": true }
+}

@@ -215,6 +215,7 @@
   field-sizing: content;
 }
 .input:focus { outline: none; }
+.voice[data-off] { visibility: hidden; }
 .voice[data-on] { background: var(--oak); color: var(--graphite); animation: ring 1.6s ease-out infinite; }
 @keyframes ring {
   0% { box-shadow: 0 0 0 0 rgba(201, 162, 122, 0.55); }

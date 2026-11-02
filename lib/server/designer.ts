@@ -61,16 +61,19 @@ function pageContext(page: unknown): string {
   return `Visitor context: the visitor is currently on the page ${path}.`;
 }
 
-function parseReply(text: string): DesignerReply | null {
+function parseReply(text: string, locale: string): DesignerReply | null {
   try {
     const data = JSON.parse(text) as Partial<DesignerReply>;
     if (typeof data.reply !== 'string' || !data.reply.trim()) return null;
-    return sanitizeReply({
-      reply: data.reply,
-      cards: Array.isArray(data.cards) ? data.cards : [],
-      suggestions: Array.isArray(data.suggestions) ? data.suggestions : [],
-      handoff: !!data.handoff,
-    });
+    return sanitizeReply(
+      {
+        reply: data.reply,
+        cards: Array.isArray(data.cards) ? data.cards : [],
+        suggestions: Array.isArray(data.suggestions) ? data.suggestions : [],
+        handoff: !!data.handoff,
+      },
+      locale,
+    );
   } catch {
     return null;
   }
@@ -107,10 +110,10 @@ async function askClaude(turns: ChatTurn[], locale: string, context: string, mod
       .filter((block): block is Extract<typeof block, { type: 'text' }> => block.type === 'text')
       .map((block) => block.text)
       .join('');
-    return parseReply(text);
+    return parseReply(text, locale);
   } catch (err) {
-    if (err instanceof Anthropic.APIError) console.warn(`[designer] Claude request failed (${err.status ?? 'connection'})`);
-    else console.warn('[designer] Claude request failed');
+    if (err instanceof Anthropic.APIError) console.warn(`[designer] live answer failed (${err.status ?? 'connection'})`);
+    else console.warn('[designer] live answer failed');
     return null;
   }
 }
@@ -132,15 +135,15 @@ async function askOpenAI(turns: ChatTurn[], locale: string, context: string, cfg
       signal: ctrl.signal,
     });
     if (!res.ok) {
-      console.warn(`[designer] OpenAI request failed (${res.status})`);
+      console.warn(`[designer] live answer failed (${res.status})`);
       return null;
     }
     const json = (await res.json()) as { choices?: { message?: { content?: string | null; refusal?: string | null } }[] };
     const message = json.choices?.[0]?.message;
     if (message?.refusal) return declineReply(locale);
-    return message?.content ? parseReply(message.content) : null;
+    return message?.content ? parseReply(message.content, locale) : null;
   } catch {
-    console.warn('[designer] OpenAI request failed');
+    console.warn('[designer] live answer failed');
     return null;
   } finally {
     clearTimeout(timer);

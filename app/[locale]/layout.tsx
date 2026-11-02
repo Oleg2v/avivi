@@ -5,6 +5,8 @@ import '../fonts.css';
 import { dirOf, isLocale, locales, type Locale } from '@/lib/i18n';
 import { getDict } from '@/lib/dict';
 import { fontClasses, fontPreloads } from '@/lib/fonts';
+import { siteUrl } from '@/lib/site';
+import { ogImage } from '@/lib/meta';
 import { ClientShell } from '@/components/providers/ClientShell';
 import { Footer } from '@/components/layout/Footer';
 
@@ -12,8 +14,6 @@ export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
 
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000');
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -23,7 +23,10 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     title: { default: t.meta.titleSuffix, template: `%s · ${t.meta.titleSuffix}` },
     description: t.meta.description,
     applicationName: t.meta.siteName,
-    robots: { index: false, follow: false, nocache: true, googleBot: { index: false, follow: false, noimageindex: true } },
+    // Demo: hidden from search engines on every page (robots.txt disallows everything too).
+    robots: { index: false, follow: false },
+    openGraph: { siteName: t.meta.siteName, type: 'website', images: [ogImage] },
+    twitter: { card: 'summary_large_image', images: [ogImage.url] },
     formatDetection: { telephone: false },
   };
 }
@@ -51,7 +54,6 @@ export default async function LocaleLayout({ children, params }: { children: Rea
   return (
     <html lang={locale} dir={dir} className={`no-js ${fontClasses(locale)}`} suppressHydrationWarning>
       <head>
-        <meta name="robots" content="noindex, nofollow, noarchive" />
         {fontPreloads(locale).map((href) => (
           <link key={href} rel="preload" href={href} as="font" type="font/woff2" crossOrigin="" />
         ))}

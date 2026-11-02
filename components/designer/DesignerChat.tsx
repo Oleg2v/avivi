@@ -85,6 +85,8 @@ export function DesignerChat({ variant, onClose, active = true, titleId }: { var
   const [listening, setListening] = useState(false);
   const [voiceNote, setVoiceNote] = useState('');
   const [handoffOpen, setHandoffOpen] = useState(false);
+  // Voice input needs the microphone; a site Permissions-Policy of microphone=() turns the button off.
+  const [micAllowed, setMicAllowed] = useState(true);
   const logRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
@@ -114,6 +116,12 @@ export function DesignerChat({ variant, onClose, active = true, titleId }: { var
     msgsRef.current = msgs;
     if (hydrated) saveMsgs(msgs);
   }, [msgs, hydrated]);
+
+  useEffect(() => {
+    const doc = document as Document & { permissionsPolicy?: { allowsFeature(f: string): boolean }; featurePolicy?: { allowsFeature(f: string): boolean } };
+    const policy = doc.permissionsPolicy || doc.featurePolicy;
+    if (policy && !policy.allowsFeature('microphone')) setMicAllowed(false);
+  }, []);
 
   // New question: follow to the bottom. New answer: show where it starts, so it reads from the top.
   useEffect(() => {
@@ -401,7 +409,18 @@ export function DesignerChat({ variant, onClose, active = true, titleId }: { var
               }
             }}
           />
-          <button type="button" className={`${s.iconBtn} ${s.voice}`} data-on={listening ? '1' : undefined} onClick={toggleVoice} aria-pressed={listening} aria-label={listening ? d.listening : d.voice} title={d.voice}>
+          <button
+            type="button"
+            className={`${s.iconBtn} ${s.voice}`}
+            data-on={listening ? '1' : undefined}
+            data-off={micAllowed ? undefined : '1'}
+            onClick={toggleVoice}
+            aria-pressed={listening}
+            aria-label={listening ? d.listening : d.voice}
+            aria-hidden={micAllowed ? undefined : true}
+            tabIndex={micAllowed ? undefined : -1}
+            title={d.voice}
+          >
             <Icon name="mic" size={20} />
           </button>
           <button type="submit" className={s.send} disabled={busy || !input.trim()} aria-label={d.send}>

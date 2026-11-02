@@ -9,3 +9,6 @@ next-env.d.ts
 .vercel
 .netlify
 renders-raw
+.open-next
+.wrangler
+.dev.vars
