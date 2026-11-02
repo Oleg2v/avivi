@@ -1,0 +1,34 @@
+{
+  "name": "avivi-kitchens-concept",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Design concept for the Avivi Kitchens website (not the official site).",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "assets:map": "node scripts/gen-map.mjs",
+    "assets:downloads": "node scripts/gen-downloads.mjs",
+    "assets:images": "node scripts/optimise-renders.mjs"
+  },
+  "engines": {
+    "node": ">=20.9.0"
+  },
+  "dependencies": {
+    "gsap": "3.15.0",
+    "lenis": "1.3.27",
+    "next": "16.4.3",
+    "qrcode-generator": "2.0.4",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "three": "0.187.0"
+  },
+  "devDependencies": {
+    "@types/node": "22.20.5",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@types/three": "0.187.0",
+    "typescript": "5.9.3"
+  }
+}
