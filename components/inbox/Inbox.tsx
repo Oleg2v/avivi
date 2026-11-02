@@ -94,7 +94,8 @@ export function Inbox({
     setWrong(false);
     try {
       const res = await fetch('/api/inbox/login', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ password }) });
-      if (res.ok) {
+      const j = (await res.json().catch(() => ({}))) as { ok?: boolean };
+      if (res.ok && j.ok) {
         setPassword('');
         await load();
       } else setWrong(true);

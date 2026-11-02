@@ -13,7 +13,8 @@ export async function POST(request: Request) {
   }
   // Small constant delay against brute force.
   await new Promise((r) => setTimeout(r, 400));
-  if (!checkPassword(password)) return NextResponse.json({ ok: false }, { status: 401 });
+  // 200 with ok:false keeps the browser console clean; the client shows the message.
+  if (!checkPassword(password)) return NextResponse.json({ ok: false, reason: 'password' });
   const res = NextResponse.json({ ok: true });
   res.cookies.set(INBOX_COOKIE, inboxToken(), {
     httpOnly: true,

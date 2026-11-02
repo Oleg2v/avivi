@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import { useId, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import type { Dict } from '@/content/en';
 import { href, type Locale } from '@/lib/i18n';
 import { submitLead, validEmail, validPhone } from '@/lib/leads';
@@ -13,7 +13,14 @@ export function ContactForm({ locale, t, common }: { locale: Locale; t: Dict['co
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [state, setState] = useState<'idle' | 'sending' | 'done'>('idle');
   const [ref, setRef] = useState('');
+  const doneRef = useRef<HTMLDivElement>(null);
   const set = (k: keyof typeof f, v: string | boolean) => setF((x) => ({ ...x, [k]: v }));
+  // The form collapses into a short note: bring it into view and move focus to it.
+  useEffect(() => {
+    if (state !== 'done' || !doneRef.current) return;
+    doneRef.current.focus({ preventScroll: true });
+    doneRef.current.scrollIntoView({ block: 'center', behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+  }, [state]);
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     const errs: Record<string, string> = {};
@@ -30,7 +37,7 @@ export function ContactForm({ locale, t, common }: { locale: Locale; t: Dict['co
   };
   if (state === 'done') {
     return (
-      <div className={s.note} role="status" style={{ padding: 28 }}>
+      <div className={s.note} role="status" style={{ padding: 28, outline: 'none' }} ref={doneRef} tabIndex={-1}>
         <Icon name="check" size={20} />
         <div>
           <p style={{ color: 'var(--ink)', marginBlockEnd: 6 }}>{t.success}</p>

@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import { useId, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import type { Dict } from '@/content/en';
 import { href, type Locale } from '@/lib/i18n';
 import { submitLead, validEmail, validPhone, leadWhatsApp } from '@/lib/leads';
@@ -122,6 +122,12 @@ export function LeadForm({
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [state, setState] = useState<'idle' | 'sending' | 'done'>('idle');
   const [ref, setRef] = useState('');
+  const doneRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (state !== 'done' || !doneRef.current) return;
+    doneRef.current.focus({ preventScroll: true });
+    doneRef.current.scrollIntoView({ block: 'center', behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+  }, [state]);
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -150,7 +156,7 @@ export function LeadForm({
 
   if (state === 'done') {
     return (
-      <div className={s.success} role="status">
+      <div className={s.success} role="status" ref={doneRef} tabIndex={-1} style={{ outline: 'none' }}>
         <Icon name="check" size={22} />
         <div>
           <p className={s.successTitle}>{success}</p>
