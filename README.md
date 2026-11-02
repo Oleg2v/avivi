@@ -6,6 +6,7 @@ A complete concept for a new avivi.com: Hebrew first, with English, Russian and 
 
 Company facts come only from the brief (1969, Yitzhak Avivi, family company, ~14,000 kitchens a year, 550+ people, Karmiel and Bnei Darom factories, six showrooms, the planned automated factory as announced plans). Anything not known is shown as labelled example data or “to confirm”.
 
+- **Live demo:** https://avivi.kikkey.com (Cloudflare Workers; see *Deploy* below)
 - **What the demo shows, in sales language:** [DEMO_FEATURES.md](DEMO_FEATURES.md) (Hebrew and English)
 - **What is mocked and how to connect the real systems:** [CONNECT_REAL_SYSTEMS.md](CONNECT_REAL_SYSTEMS.md)
 
@@ -50,7 +51,7 @@ Also: `/new-apartment`, `/products`, `/story`, `/magazine` (three demo articles)
 
 The site is a standard Next.js app (App Router). Pages are statically generated per locale; only `/api/*` runs on the server.
 
-### Vercel (recommended)
+### Vercel
 
 1. Push this repository to GitHub and choose **Add New → Project** in Vercel, then import it.
 2. Framework preset: Next.js (detected). No build settings to change.
@@ -73,19 +74,31 @@ For the inbox to keep leads between requests, add Vercel KV (or Upstash Redis) f
 
 `netlify.toml` is included. Create a new site from the repository; the Next.js runtime is detected. Add the environment variables under *Site configuration → Environment variables*.
 
-### Cloudflare
+### Cloudflare Workers (current demo: https://avivi.kikkey.com)
 
-Use the OpenNext adapter for Cloudflare Workers:
-
-```bash
-npm install --save-dev @opennextjs/cloudflare wrangler
-```
+The demo is live at **https://avivi.kikkey.com** (English `/en`, Russian `/ru`, French `/fr`). It runs on Cloudflare Workers through the official OpenNext adapter (`@opennextjs/cloudflare`), which takes the regular `next build` output, so the rest of the project (dev server, Vercel, Netlify) is unchanged.
 
 ```bash
-npx opennextjs-cloudflare build && npx opennextjs-cloudflare deploy
+npm run deploy:cf
 ```
 
-Set the variables with `npx wrangler secret put NAME` (server keys) and in the dashboard (public `NEXT_PUBLIC_*` values, before building).
+That builds for Workers (`.open-next/`) and deploys with Wrangler. It needs `CLOUDFLARE_API_TOKEN` in the environment (or `npx wrangler login` once). Other commands:
+
+```bash
+npm run preview:cf
+```
+
+serves the Workers build locally in workerd at http://localhost:8787, and `npm run build:cf` only builds.
+
+What is configured:
+
+- `wrangler.jsonc`: Worker `avivi`, pinned to the account that hosts the demo (`account_id`), served only on the custom domain `avivi.kikkey.com` (`routes` with `custom_domain: true`; Cloudflare manages the DNS record and certificate). `workers_dev` and `preview_urls` are off, so the `workers.dev` address answers 404. `keep_vars` keeps variables set in the dashboard; observability is on.
+- `open-next.config.ts`: every page is prerendered and served from the Workers static assets (read-only cache); the API routes run in the Worker. No R2, KV, D1 or Images binding is used, so nothing else is provisioned in the account. Images are served as built (`images.unoptimized` for this build only).
+- Locale routing lives in `next.config.ts` (rewrites and redirects), so no middleware runs in the Worker.
+- Absolute address for canonical, hreflang, Open Graph (`/og.jpg`) and `/sitemap.xml`: `NEXT_PUBLIC_SITE_URL`, default `https://avivi.kikkey.com` (`lib/site.ts`). To deploy elsewhere, change `name`, `account_id` and `routes` in `wrangler.jsonc` and set `NEXT_PUBLIC_SITE_URL`.
+- Hidden from search engines: `<meta name="robots" content="noindex, nofollow">` on every page, `X-Robots-Tag`, and `robots.txt` with `Disallow: /`.
+- Security headers: `public/_headers` for static files and `next.config.ts` for pages and API responses, with the same values (`X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`, `Permissions-Policy: camera=(), microphone=(), geolocation=()`, `X-Frame-Options: SAMEORIGIN`). This policy turns off the voice input of Avivi Designer; to allow it, change `microphone=()` to `microphone=(self)` in both files.
+- Server keys (`INBOX_PASSWORD`, `INBOX_SECRET`, `LEAD_WEBHOOK_URL`, AI keys) go in the Worker's **Settings → Variables and Secrets** (type *Secret*). `NEXT_PUBLIC_*` values are read at build time: set them in the shell before `npm run deploy:cf`. Without keys the demo mode described above is what runs.
 
 ## Environment variables
 
@@ -107,7 +120,7 @@ Keys stay on the server. Photos sent to the visualiser are processed in memory a
 
 ```
 app/
-  [locale]/                 one route tree for he, en, ru, fr (SSG); Hebrew is served at / by proxy.ts
+  [locale]/                 one route tree for he, en, ru, fr (SSG); Hebrew is served at / by rewrites in next.config.ts
     page.tsx                home: hero, facts, collections, material wall, SMART KITCHEN, tools, showrooms
     collections/            index + [slug] for the five collections (day-to-night scene)
     smart-kitchen/          SMART KITCHEN, opened (3D)
@@ -123,7 +136,7 @@ app/
     inbox/                  inbox data, login, logout (HMAC cookie)
   globals.css               design tokens, type, RTL-safe logical CSS, motion, a11y modes
   fonts.css                 self-hosted font faces with metric-adjusted fallbacks
-  robots.ts icon.svg
+  robots.ts sitemap.ts icon.svg
 components/
   home/ hero/               hero scene (three.js), drawings fallback, material wall shader, sections
   collections/ smart/ planner/                        day-to-night, SMART KITCHEN 3D, planner UI + 3D
@@ -141,6 +154,8 @@ lib/
   inbox/seed.ts             example pipeline for the inbox
   i18n.ts site.ts store.ts leads.ts ics.ts consent.ts analytics.ts meta.ts ...
 public/
+  _headers                  security headers for Workers static assets
+  og.jpg                    social preview image
   fonts/                    Frank Ruhl Libre, Heebo, Fraunces, Inter Tight, Literata (woff2 subsets)
   renders/                  concept renders (WebP), all labelled “Concept render” in the UI
   downloads/                example swatches, technical sheet PDF, DXF blocks
@@ -149,8 +164,10 @@ scripts/
   optimise-renders.mjs      PNG → WebP + blur placeholders
   downloads/                swatch, PDF and DXF generators
   geo/coast.mjs             coastline path for the drafting-style map
-proxy.ts                    locale routing (Hebrew unprefixed, /he → /)
-next.config.ts              noindex and security headers, image formats
+next.config.ts              locale rewrites and redirects (Hebrew unprefixed, /he → /), noindex and security headers
+wrangler.jsonc              Cloudflare Workers: account, custom domain avivi.kikkey.com, workers.dev off
+open-next.config.ts         OpenNext adapter settings (static assets cache)
+scripts/cloudflare.mjs      npm run build:cf / preview:cf / deploy:cf
 DEMO_FEATURES.md  CONNECT_REAL_SYSTEMS.md  .env.example  netlify.toml
 ```
 
