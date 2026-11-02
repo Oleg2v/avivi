@@ -49,6 +49,12 @@
 }
 :global(.script-he) :global(.wm-main) { font-size: 1.75rem; font-weight: 500; }
 :global(.script-he) :global(.wm-sub) { letter-spacing: 0.06em; font-size: 0.8rem; text-transform: none; }
+/* Small phones: the header keeps the name, accessibility, My design, booking and menu on one line. */
+@media (max-width: 459px) {
+  .logo :global(.wm-sub) { display: none; }
+  .actions { gap: 0; }
+  .book { margin-inline-start: 2px; padding-inline: 0.85em; }
+}
 
 /* Primary navigation */
 .nav { display: none; }

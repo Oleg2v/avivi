@@ -21,7 +21,7 @@
 
 .future { background: var(--bg); color: var(--ink); padding-block: clamp(80px, 11vw, 180px); }
 .futureInner { display: grid; gap: clamp(28px, 4vw, 48px); }
-.futureTitle { font-family: var(--f-display); font-size: var(--fs-xl); line-height: 1; font-weight: 340; max-inline-size: 16ch; }
+.futureTitle { font-family: var(--f-display); font-size: clamp(2rem, 1.1rem + 4.6vw, 6.1rem); line-height: 1; font-weight: 340; max-inline-size: 16ch; }
 .figures { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; border-block-start: 1px solid var(--line); padding-block-start: 24px; max-inline-size: 760px; }
 .figure { display: grid; gap: 6px; }
 .figValue { font-family: var(--f-display); font-size: var(--fs-l); line-height: 1; }

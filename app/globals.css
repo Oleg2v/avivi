@@ -145,6 +145,8 @@ h1, h2, h3, h4, h5 {
   margin: 0;
   letter-spacing: -0.012em;
   text-wrap: balance;
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 .script-latin h1, .script-latin h2, .script-latin .display {
   font-variation-settings: 'opsz' 144, 'SOFT' 40;
@@ -330,7 +332,9 @@ h1, h2, h3, h4, h5 {
   font-weight: 500;
   justify-self: start;
   inline-size: fit-content;
+  max-inline-size: 100%;
 }
+@media (max-width: 640px) { .example-tag { white-space: normal; } }
 .example-tag::before {
   content: '';
   inline-size: 5px;
