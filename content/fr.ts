@@ -163,6 +163,7 @@ export const fr: Dict = {
       keys: 'Les flèches déplacent la lumière',
       in: 'Dans',
       fallback: 'Votre navigateur affiche des images fixes des matériaux.',
+      names: ['Placage chêne naturel', 'Placage noyer', 'Laque mate, graphite', 'Marbre blanc poli', 'Laiton brossé'],
     },
     smart: {
       kicker: 'SMART KITCHEN',

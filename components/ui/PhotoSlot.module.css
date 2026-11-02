@@ -1,0 +1,44 @@
+.slot { display: grid; gap: 12px; margin: 0; }
+.frame {
+  position: relative;
+  overflow: hidden;
+  background: var(--surface);
+  isolation: isolate;
+}
+.img { display: block; inline-size: 100%; block-size: 100%; object-fit: cover; transition: transform 1.6s var(--ease); }
+.slot:hover .img { transform: scale(1.025); }
+.placeholder {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  gap: 10px;
+  color: var(--muted);
+  background: repeating-linear-gradient(135deg, transparent 0 14px, rgba(28, 28, 28, 0.035) 14px 15px), var(--surface);
+}
+.placeholder svg { inline-size: 40%; fill: none; stroke: currentColor; stroke-width: 1; opacity: 0.5; }
+.badge {
+  position: absolute;
+  inset-block-start: 12px;
+  inset-inline-start: 12px;
+  padding: 4px 9px;
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  background: rgba(244, 240, 234, 0.86);
+  color: var(--graphite);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+.dim {
+  position: absolute;
+  inset-block-end: 10px;
+  inset-inline-end: 12px;
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  color: rgba(244, 240, 234, 0.9);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+.caption { display: grid; gap: 4px; font-size: 0.8125rem; color: var(--muted); }
+.capText { color: var(--ink); font-size: 0.9375rem; }
+.art { font-size: 0.75rem; line-height: 1.5; }
+.artLabel { color: var(--accent); font-weight: 500; }

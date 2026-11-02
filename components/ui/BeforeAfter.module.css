@@ -1,0 +1,74 @@
+.ba {
+  --v: 50%;
+  position: relative;
+  overflow: hidden;
+  background: var(--surface);
+  user-select: none;
+  touch-action: pan-y;
+}
+.img { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; object-fit: cover; }
+.beforeWrap {
+  position: absolute;
+  inset: 0;
+  clip-path: inset(0 calc(100% - var(--v)) 0 0);
+}
+:global([dir='rtl']) .beforeWrap { clip-path: inset(0 0 0 calc(100% - var(--v))); }
+.handle {
+  position: absolute;
+  inset-block: 0;
+  left: var(--v);
+  inline-size: 0;
+  pointer-events: none;
+}
+:global([dir='rtl']) .handle { left: auto; right: var(--v); }
+.handle::before {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  left: -0.75px;
+  inline-size: 1.5px;
+  background: rgba(244, 240, 234, 0.95);
+  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.15);
+}
+.knob {
+  position: absolute;
+  inset-block-start: 50%;
+  left: 0;
+  transform: translate(-50%, -50%);
+  display: grid;
+  place-items: center;
+  inline-size: 46px;
+  block-size: 46px;
+  border-radius: 50%;
+  background: var(--bone);
+  color: var(--graphite);
+  border: 1.5px solid var(--brass);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.45);
+}
+.range {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: ew-resize;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.range:focus-visible + * { outline: none; }
+.ba:focus-within .knob { box-shadow: 0 0 0 3px var(--oak), 0 10px 30px -10px rgba(0, 0, 0, 0.45); }
+.tag {
+  position: absolute;
+  inset-block-start: 14px;
+  padding: 5px 10px;
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: rgba(28, 28, 28, 0.62);
+  color: var(--bone);
+  pointer-events: none;
+}
+:global(.script-he) .tag { text-transform: none; letter-spacing: 0.04em; font-size: 0.75rem; }
+.tagBefore { inset-inline-start: 14px; }
+.tagAfter { inset-inline-end: 14px; }

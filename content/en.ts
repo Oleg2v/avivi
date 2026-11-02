@@ -163,6 +163,7 @@ export const en = {
       keys: 'Arrow keys move the light',
       in: 'In',
       fallback: 'Your browser shows still images of the materials.',
+      names: ['Natural oak veneer', 'Walnut veneer', 'Matte lacquer, graphite', 'White marble, polished', 'Brushed brass'],
     },
     smart: {
       kicker: 'SMART KITCHEN',
