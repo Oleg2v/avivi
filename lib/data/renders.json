@@ -83,5 +83,40 @@
   "w": 1500,
   "h": 1000,
   "blur": "data:image/webp;base64,UklGRoYAAABXRUJQVlA4IHoAAABQBACdASoYABAAPtFUo0uoJKMhsAgBABoJYgCdMoADKmsdp5Qc7MYz+0boAPcn152ngXy2xPsNjSmszvbMmbnfvtYC3tFG7F+gR8yXNVdqC9wOoDjNyTA9NXSaTgZNjyFDhejJikNrV+67dcKWb1MYSIpta9zWy6AAAA=="
+ },
+ "detail-classic": {
+  "w": 1500,
+  "h": 1000,
+  "blur": "data:image/webp;base64,UklGRnQAAABXRUJQVlA4IGgAAADwAwCdASoYABAAPtFUo0uoJKMhsAgBABoJZQC7ABuVDrRSpTlX7YLwAPNzK1djR1lZ0pUi2mZp3EWy3ijxX70ATpDNYIFv+5P0mP6svcn2ad6s1s48a+b5uansIII50XBRqGGLSAAAAA=="
+ },
+ "detail-dark": {
+  "w": 1500,
+  "h": 1000,
+  "blur": "data:image/webp;base64,UklGRmAAAABXRUJQVlA4IFQAAABwAwCdASoYABAALplotFoiqCgoCACYSzgF2AHo3P4PebhGYoAA/vGF3Q2v91+0baOy38h35cXeLrcRp57c8oL+GoezSumdiPuU0xID8uzSNOAIAAA="
+ },
+ "detail-light": {
+  "w": 1500,
+  "h": 1000,
+  "blur": "data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAABwAwCdASoYABAAPtFUpEuoJKOhsAgBABoJZwAASAGKp+xI9IAAy/DY058IWoE12ePPvyfPNvV2IRwnsWXDxYD7JDzjsAAA"
+ },
+ "detail-modern": {
+  "w": 1500,
+  "h": 1000,
+  "blur": "data:image/webp;base64,UklGRlwAAABXRUJQVlA4IFAAAACQAwCdASoYABAAPtFUpEuoJKOhsAgBABoJZQCsABqm0ScG0HAAAP0x2XYwAuPxr/LAzoMxwdHLt783Sra4Oz1QKWg4LTEU9laCfa3b/aiAAA=="
+ },
+ "detail-specials": {
+  "w": 1500,
+  "h": 1000,
+  "blur": "data:image/webp;base64,UklGRm4AAABXRUJQVlA4IGIAAABwAwCdASoYABAAPtFUo0uoJKMhsAgBABoJYgCsL1yAjm7yBVAA/TTNUvo4gka7Vy4fviXWTICqjYYzi8+SZzvJn5d+kt1qOH1IG+Aw11SyXLnXhBuy90oGN8DHwOL+7MAAAA=="
+ },
+ "room-b-dark-evening": {
+  "w": 1500,
+  "h": 1000,
+  "blur": "data:image/webp;base64,UklGRqQAAABXRUJQVlA4IJgAAACwBACdASoYABAAPtFUo0uoJKMhsAgBABoJYgCdMoRwACsKC7nUOtsTamisdZCgAP68aSPppe2xICFCgVZ+YR7RdmoVNf/5wMx0Mr39WwFtAdIXHe3F+VemF0DM1bEaOSK26JzuV42K1ovxF2lHA7cy71cAVX4pS4nIKcTiyc5Tk6hAxVl7oC1HgpXFtThbMULnB7z2IIo4AA=="
+ },
+ "room-c-specials": {
+  "w": 1500,
+  "h": 1000,
+  "blur": "data:image/webp;base64,UklGRqAAAABXRUJQVlA4IJQAAABQBACdASoYABAAPtFUpEuoJKOhsAgBABoJZgCdMoAC/KK8nvKSzozsezxAAP7M+AAsocbrjLfGr/4oyY2qp0CGQvt8p9Muc3Ro8xykGImR0mk2gjdkFrqWoLn7ELNp5Q+9F4CciZZP2lVqASv+l1bf831j7mZsUaIulEOXoZSz6hd5rCjnHAVQOUY7OzpzxgqlxAAA"
  }
 }

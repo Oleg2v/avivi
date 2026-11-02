@@ -5,3 +5,22 @@
 .crumbs a:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 0.2em; }
 .title { font-size: var(--fs-xl); max-inline-size: 16ch; }
 .intro { max-inline-size: 46ch; }
+
+/* Split: heading and a tool side by side (tool first after the heading on small screens). */
+.split { padding-block: clamp(104px, 11vw, 132px) var(--section); }
+.split :global(.wrap) { gap: clamp(32px, 4vw, 56px); grid-template-areas: 'main' 'side' 'extra'; }
+.main, .extra { display: grid; gap: 18px; align-content: start; }
+.main { grid-area: main; }
+.side { grid-area: side; min-inline-size: 0; }
+.extra { grid-area: extra; }
+.split .title { font-size: var(--fs-l); max-inline-size: 14ch; }
+@media (min-width: 1000px) {
+  .split :global(.wrap) {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    grid-template-rows: auto 1fr;
+    grid-template-areas: 'main side' 'extra side';
+    column-gap: clamp(40px, 5vw, 96px);
+    row-gap: 40px;
+  }
+  .side { position: sticky; inset-block-start: calc(var(--header-h) + 24px); align-self: start; }
+}

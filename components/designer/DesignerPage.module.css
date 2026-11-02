@@ -1,0 +1,32 @@
+.aside { display: grid; gap: 40px; padding-block-start: 8px; }
+.block h2 { margin-block-end: 14px; }
+.can {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 20px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.can li { padding-block: 10px; border-block-start: 1px solid var(--line); font-size: var(--fs-small); }
+.cant { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+.cant li { display: flex; gap: 10px; align-items: baseline; font-size: var(--fs-small); color: var(--muted); }
+.cant li::before { content: ''; inline-size: 12px; block-size: 1px; background: var(--brass); flex: none; transform: translateY(-4px); }
+.note { font-size: var(--fs-small); color: var(--muted); }
+.examples { list-style: none; padding: 0; margin: 0; border-block-end: 1px solid var(--line); }
+.examples li { border-block-start: 1px solid var(--line); }
+.examples button {
+  inline-size: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-block: 12px;
+  text-align: start;
+  font-size: 0.98rem;
+  transition: color 0.2s, padding 0.4s var(--ease);
+}
+.examples button svg { color: var(--oak-ink); flex: none; opacity: 0.6; transition: opacity 0.2s, transform 0.4s var(--ease); }
+.examples button:hover { padding-inline-start: 6px; }
+.examples button:hover svg { opacity: 1; }
+.chat { scroll-margin-block-start: calc(var(--header-h) + 12px); }
