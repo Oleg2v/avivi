@@ -1,0 +1,31 @@
+.open { display: grid; gap: clamp(32px, 5vw, 80px); padding-block-end: clamp(64px, 9vw, 140px); }
+@media (min-width: 1000px) { .open { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); align-items: end; } }
+.openText { display: grid; gap: 18px; }
+.big { font-family: var(--f-display); font-size: var(--fs-xxl); line-height: 0.9; font-weight: 340; letter-spacing: -0.02em; }
+
+.timeline { list-style: none; padding: 0; margin: 0 0 clamp(64px, 9vw, 140px); border-block-start: 1px solid var(--line); }
+.chapter { display: grid; gap: 8px 32px; padding-block: clamp(28px, 4vw, 48px); border-block-end: 1px solid var(--line); }
+@media (min-width: 900px) { .chapter { grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); align-items: baseline; } }
+.year { font-family: var(--f-display); font-size: var(--fs-l); line-height: 1; font-variant-numeric: lining-nums; }
+.yearSoft { color: var(--muted); font-size: var(--fs-m); }
+.yearSoft::after { content: ''; display: inline-block; inline-size: 8px; block-size: 8px; border: 1px dashed var(--brass); border-radius: 50%; margin-inline-start: 10px; vertical-align: middle; }
+.chTitle { font-family: var(--f-display); font-size: var(--fs-s); margin-block-end: 6px; }
+.chText { color: var(--muted); max-inline-size: 54ch; }
+
+.factories { display: grid; gap: clamp(28px, 4vw, 56px); margin-block-end: clamp(64px, 9vw, 140px); }
+@media (min-width: 1000px) { .factories { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: center; } }
+.factoryList { display: grid; gap: 0; border-block-start: 1px solid var(--line); }
+.factory { display: grid; gap: 6px; padding-block: 24px; border-block-end: 1px solid var(--line); }
+.factoryName { font-family: var(--f-display); font-size: var(--fs-m); }
+.mapWrap { max-inline-size: 380px; justify-self: center; inline-size: 100%; }
+
+.future { background: var(--bg); color: var(--ink); padding-block: clamp(80px, 11vw, 180px); }
+.futureInner { display: grid; gap: clamp(28px, 4vw, 48px); }
+.futureTitle { font-family: var(--f-display); font-size: var(--fs-xl); line-height: 1; font-weight: 340; max-inline-size: 16ch; }
+.figures { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; border-block-start: 1px solid var(--line); padding-block-start: 24px; max-inline-size: 760px; }
+.figure { display: grid; gap: 6px; }
+.figValue { font-family: var(--f-display); font-size: var(--fs-l); line-height: 1; }
+.figLabel { color: var(--muted); font-size: var(--fs-small); margin: 0; }
+
+.family { display: grid; gap: 18px; padding-block: clamp(72px, 10vw, 160px); max-inline-size: 900px; }
+.familyTitle { font-family: var(--f-display); font-size: var(--fs-l); line-height: 1.04; font-weight: 380; }

@@ -10,7 +10,7 @@ export const dynamic = 'force-dynamic';
 export async function GET() {
   const jar = await cookies();
   if (!isAuthed(jar.get(INBOX_COOKIE)?.value)) {
-    return NextResponse.json({ ok: false }, { status: 401 });
+    return NextResponse.json({ ok: false, demo: passwordIsDefault });
   }
   // In demo mode (no INBOX_PASSWORD) server-stored leads are never exposed.
   const leads = passwordIsDefault ? [] : await listLeads();

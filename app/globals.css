@@ -621,3 +621,14 @@ html.lenis, html.lenis body { block-size: auto; }
   .designer-launcher { padding: 0; inline-size: 52px; justify-content: center; }
   .designer-launcher-dot { position: absolute; inset-block-start: 10px; inset-inline-end: 10px; }
 }
+
+/* --------------------------------------------------------------------------
+   Switch (cookie settings and other on/off choices)
+   -------------------------------------------------------------------------- */
+.switch { display: inline-flex; align-items: center; gap: 10px; min-block-size: 44px; font-size: 0.875rem; }
+.switch-track { position: relative; inline-size: 46px; block-size: 26px; border-radius: 99px; background: var(--surface-2); border: 1px solid var(--line-strong); transition: background-color 0.25s, border-color 0.25s; flex: none; }
+.switch-thumb { position: absolute; inset-block-start: 3px; inset-inline-start: 3px; inline-size: 18px; block-size: 18px; border-radius: 50%; background: var(--bg); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25); transition: transform 0.3s var(--ease); }
+.switch[aria-checked='true'] .switch-track { background: var(--ink); border-color: var(--ink); }
+.switch[aria-checked='true'] .switch-thumb { transform: translateX(20px); }
+[dir='rtl'] .switch[aria-checked='true'] .switch-thumb { transform: translateX(-20px); }
+.switch-label { min-inline-size: 2.5em; }
