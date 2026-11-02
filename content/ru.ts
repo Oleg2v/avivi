@@ -626,6 +626,7 @@ export const ru: Dict = {
     wall: 'Стена',
     walls: { back: 'Задняя стена', left: 'Левая стена', right: 'Правая стена', front: 'Стена со входом' },
     offset: 'От левого угла',
+    offsetSide: 'От задней стены',
     openingWidth: 'Ширина',
     remove: 'Убрать',
     finish: 'Коллекция',

@@ -292,6 +292,10 @@ h1, h2, h3, h4, h5 {
   gap: 0.5em;
   padding-block: 0.25em;
   font-weight: 500;
+  justify-self: start;
+  align-self: start;
+  inline-size: fit-content;
+  max-inline-size: 100%;
 }
 .link-line::after {
   content: '';
@@ -324,6 +328,8 @@ h1, h2, h3, h4, h5 {
   vertical-align: middle;
   font-family: var(--f-ui);
   font-weight: 500;
+  justify-self: start;
+  inline-size: fit-content;
 }
 .example-tag::before {
   content: '';

@@ -1,0 +1,14 @@
+.modules { padding-block: var(--section); display: grid; gap: 32px; }
+.modList { display: grid; gap: 0; margin: 0; }
+@media (min-width: 900px) { .modList { grid-template-columns: 1fr 1fr; column-gap: 48px; } }
+.modList > div { display: grid; grid-template-columns: 48px 1fr; gap: 12px; padding-block: 18px; border-block-start: 1px solid var(--line); }
+.modList dd { margin: 0; font-size: var(--fs-s); line-height: 1.45; }
+.tech { padding-block: var(--section); background: var(--surface); }
+.tech :global(.wrap) { display: grid; gap: 40px; }
+.techList { list-style: none; display: grid; gap: 28px; }
+@media (min-width: 900px) { .techList { grid-template-columns: repeat(3, 1fr); } }
+.techList li { display: grid; gap: 10px; padding-block-start: 18px; border-block-start: 1px solid var(--line-strong); }
+.veneer { padding-block: var(--section); display: grid; gap: clamp(32px, 5vw, 80px); align-items: center; }
+@media (min-width: 900px) { .veneer { grid-template-columns: 1fr 1fr; } }
+.veneerText { display: grid; gap: 18px; }
+.cta { display: flex; flex-wrap: wrap; gap: 10px; padding-block-end: var(--section); }

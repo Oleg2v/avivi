@@ -626,6 +626,7 @@ export const en = {
     wall: 'Wall',
     walls: { back: 'Back wall', left: 'Left wall', right: 'Right wall', front: 'Entrance wall' },
     offset: 'From left corner',
+    offsetSide: 'From back wall',
     openingWidth: 'Width',
     remove: 'Remove',
     finish: 'Collection',

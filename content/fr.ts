@@ -626,6 +626,7 @@ export const fr: Dict = {
     wall: 'Mur',
     walls: { back: 'Mur du fond', left: 'Mur gauche', right: 'Mur droit', front: 'Mur d’entrée' },
     offset: 'Depuis l’angle gauche',
+    offsetSide: 'Depuis le mur du fond',
     openingWidth: 'Largeur',
     remove: 'Retirer',
     finish: 'Collection',

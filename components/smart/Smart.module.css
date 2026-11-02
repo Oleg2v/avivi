@@ -1,0 +1,60 @@
+.pinned { position: relative; block-size: 620vh; background: #e9e2d7; }
+.pinned[data-mode='static'], .pinned[data-mode='fallback'] { block-size: auto; }
+.sticky { position: sticky; inset-block-start: 0; block-size: 100svh; overflow: hidden; }
+.pinned[data-mode='static'] .sticky, .pinned[data-mode='fallback'] .sticky { position: relative; block-size: auto; min-block-size: 90svh; }
+.canvas { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; opacity: 0; transition: opacity 1s var(--ease); cursor: pointer; }
+.pinned[data-ready='1'] .canvas { opacity: 1; }
+.pinned[data-mode='fallback'] .canvas { display: none; }
+.principles {
+  position: absolute;
+  inset-block-end: clamp(20px, 4vh, 48px);
+  inset-inline-start: var(--margin);
+  inline-size: min(420px, calc(100% - 2 * var(--margin)));
+  list-style: none;
+  display: grid;
+}
+.pinned[data-mode='fallback'] .principles, .pinned[data-mode='static'] .principles { position: relative; inset: auto; inline-size: auto; padding: 120px var(--margin) 60px; max-inline-size: 760px; }
+.principles li {
+  display: grid;
+  gap: 4px;
+  padding: 0 18px;
+  max-block-size: 0;
+  overflow: hidden;
+  opacity: 0;
+  background: rgba(244, 240, 234, 0.9);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  transition: max-block-size 0.7s var(--ease), opacity 0.5s, padding 0.7s var(--ease);
+}
+.principles li[data-active='1'] { max-block-size: 260px; opacity: 1; padding: 18px; }
+.pinned[data-mode='static'] .principles li, .pinned[data-mode='fallback'] .principles li { border-block-start: 1px solid var(--line); background: none; }
+.pTitle { font-family: var(--f-display); font-size: var(--fs-m); line-height: 1.12; }
+.pText { color: var(--muted); }
+.modHint {
+  position: absolute;
+  inset-block-start: calc(var(--header-h) + 24px);
+  inset-inline-end: var(--margin);
+  display: grid;
+  gap: 6px;
+  justify-items: end;
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+.scroll { color: var(--accent); }
+.pinned[data-mode='fallback'] .modHint { display: none; }
+.tipLayer { position: absolute; inset: 0; pointer-events: none; }
+.tip {
+  position: absolute;
+  transform: translate(-50%, calc(-100% - 18px));
+  inline-size: max-content;
+  max-inline-size: min(320px, 80vw);
+  padding: 14px 16px;
+  background: var(--graphite);
+  color: var(--bone);
+  font-size: 0.9rem;
+  line-height: 1.45;
+  box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.5);
+  animation: tipIn 0.4s var(--ease);
+}
+@keyframes tipIn { from { opacity: 0; transform: translate(-50%, calc(-100% - 8px)); } }

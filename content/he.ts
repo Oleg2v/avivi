@@ -627,6 +627,7 @@ export const he: Dict = {
     wall: 'קיר',
     walls: { back: 'הקיר האחורי', left: 'הקיר השמאלי', right: 'הקיר הימני', front: 'קיר הכניסה' },
     offset: 'מהפינה השמאלית',
+    offsetSide: 'מהקיר האחורי',
     openingWidth: 'רוחב',
     remove: 'הסרה',
     finish: 'קולקציה',

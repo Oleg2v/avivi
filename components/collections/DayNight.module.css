@@ -1,0 +1,40 @@
+.wrap { display: grid; gap: 18px; }
+.stage {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: color-mix(in srgb, #e6ded2 calc((1 - var(--t)) * 100%), #121110);
+}
+@media (max-width: 760px) { .stage { aspect-ratio: 4 / 5; } }
+.canvas { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; opacity: 0; transition: opacity 1s var(--ease); }
+.wrap[data-state='ready'] .canvas { opacity: 1; }
+.wrap[data-state='fallback'] .canvas { display: none; }
+.stage > :global(figure) { position: absolute; inset: 0; }
+.timeBadge {
+  position: absolute;
+  inset-block-start: 14px;
+  inset-inline-end: 14px;
+  display: flex;
+  gap: 10px;
+  padding: 6px 12px;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  background: rgba(18, 17, 16, 0.55);
+  color: var(--bone);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+.loading {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.18), transparent);
+  background-size: 50% 100%;
+  background-repeat: no-repeat;
+  animation: sweep 1.6s linear infinite;
+}
+@keyframes sweep { from { background-position: -50% 0; } to { background-position: 150% 0; } }
+.controls { display: flex; align-items: center; gap: 18px; }
+.play { inline-size: 44px; min-inline-size: 44px; padding: 0; justify-content: center; }
+.slider { flex: 1; display: grid; gap: 4px; }
+.ticks { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--muted); letter-spacing: 0.04em; }
+.hint { margin: 0; font-size: 0.8125rem; color: var(--muted); }

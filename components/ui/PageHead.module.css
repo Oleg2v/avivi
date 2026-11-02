@@ -1,0 +1,7 @@
+.head { padding-block: clamp(130px, 16vw, 220px) clamp(48px, 6vw, 96px); background: var(--bg); color: var(--ink); }
+.head :global(.wrap) { display: grid; gap: 18px; }
+.crumbs ol { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; font-size: 0.8125rem; color: var(--muted); }
+.crumbs li + li::before { content: '/'; margin-inline-end: 8px; opacity: 0.5; }
+.crumbs a:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 0.2em; }
+.title { font-size: var(--fs-xl); max-inline-size: 16ch; }
+.intro { max-inline-size: 46ch; }

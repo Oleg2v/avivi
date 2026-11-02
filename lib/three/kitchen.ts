@@ -44,6 +44,8 @@ export interface ModuleSpec {
   kind: ModuleKind;
   width: number;
   id?: string;
+  /** Explicit start along the run (metres). When omitted, modules follow each other. */
+  start?: number;
 }
 
 export interface WallSpec {
@@ -631,16 +633,17 @@ export function buildKitchen(spec: KitchenSpec, lib: MaterialLibrary): BuiltKitc
 
     let s = 0;
     const baseSpans: [number, number][] = [];
-    const sinkAt: number[] = [];
-    const hobAt: number[] = [];
+    const sinkAt: [number, number][] = [];
+    const hobAt: [number, number][] = [];
     for (const ms of run.base) {
+      if (ms.start !== undefined) s = ms.start;
       if (ms.kind === 'fridge' || ms.kind === 'oven' || ms.kind === 'pantry') {
         tallModule(rg, run.id, ms, s, s);
       } else {
         baseModule(rg, run.id, ms, s, s);
         baseSpans.push([s, s + ms.width]);
-        if (ms.kind === 'sink') sinkAt.push(s);
-        if (ms.kind === 'hob') hobAt.push(s);
+        if (ms.kind === 'sink') sinkAt.push([s, ms.width]);
+        if (ms.kind === 'hob') hobAt.push([s, ms.width]);
       }
       s += ms.width;
     }
@@ -671,14 +674,12 @@ export function buildKitchen(spec: KitchenSpec, lib: MaterialLibrary): BuiltKitc
       rg.add(m);
       out.splashes.push(m);
     }
-    for (const at of sinkAt) {
-      const ms = run.base.find((_, i) => run.base.slice(0, i).reduce((a, b) => a + b.width, 0) === at);
-      const p = sinkTop(rg, at, ms?.width ?? 0.8);
+    for (const [at, w] of sinkAt) {
+      const p = sinkTop(rg, at, w);
       out.points.sink = rg.localToWorld(p.clone());
     }
-    for (const at of hobAt) {
-      const ms = run.base.find((_, i) => run.base.slice(0, i).reduce((a, b) => a + b.width, 0) === at);
-      const p = hobTop(rg, at, ms?.width ?? 0.9);
+    for (const [at, w] of hobAt) {
+      const p = hobTop(rg, at, w);
       out.points.hob = rg.localToWorld(p.clone());
     }
     for (const ws of run.wall ?? []) wallModule(rg, run.id, ws, 0);
