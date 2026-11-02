@@ -9,7 +9,7 @@ import { fmt, num } from '@/lib/fmt';
 import { designStore, uid } from '@/lib/store';
 import { track } from '@/lib/analytics';
 import { waLink } from '@/lib/site';
-import { observeSize, webglAvailable } from '@/lib/three/core';
+import { observeSize, webglAvailable } from '@/lib/three/caps';
 import { Icon } from '@/components/ui/Icon';
 import { swatchStyle } from '@/components/ui/swatch';
 import { PlanView } from './PlanView';

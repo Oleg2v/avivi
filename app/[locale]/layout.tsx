@@ -1,9 +1,10 @@
 import type { Metadata, Viewport } from 'next';
 import { notFound } from 'next/navigation';
 import '../globals.css';
+import '../fonts.css';
 import { dirOf, isLocale, locales, type Locale } from '@/lib/i18n';
 import { getDict } from '@/lib/dict';
-import { fontClasses } from '@/lib/fonts';
+import { fontClasses, fontPreloads } from '@/lib/fonts';
 import { ClientShell } from '@/components/providers/ClientShell';
 import { Footer } from '@/components/layout/Footer';
 
@@ -51,6 +52,9 @@ export default async function LocaleLayout({ children, params }: { children: Rea
     <html lang={locale} dir={dir} className={`no-js ${fontClasses(locale)}`} suppressHydrationWarning>
       <head>
         <meta name="robots" content="noindex, nofollow, noarchive" />
+        {fontPreloads(locale).map((href) => (
+          <link key={href} rel="preload" href={href} as="font" type="font/woff2" crossOrigin="" />
+        ))}
         <script dangerouslySetInnerHTML={{ __html: bootScript }} />
       </head>
       <body>

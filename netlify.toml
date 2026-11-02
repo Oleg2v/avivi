@@ -1,0 +1,9 @@
+# Netlify: the Next.js runtime is detected automatically (OpenNext adapter).
+# Add the variables from .env.example under Site configuration → Environment variables.
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "22"
+  NEXT_TELEMETRY_DISABLED = "1"

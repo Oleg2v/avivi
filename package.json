@@ -8,9 +8,10 @@
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
-    "assets:map": "node scripts/gen-map.mjs",
-    "assets:downloads": "node scripts/gen-downloads.mjs",
-    "assets:images": "node scripts/optimise-renders.mjs"
+    "assets:map": "npm i --no-save topojson-client world-atlas && node scripts/geo/coast.mjs",
+    "assets:downloads": "python3 scripts/downloads/make_swatches.py && node scripts/downloads/make_files.cjs",
+    "assets:images": "node scripts/optimise-renders.mjs",
+    "assets:renders": "bash scripts/render/render_all.sh"
   },
   "engines": {
     "node": ">=20.9.0"

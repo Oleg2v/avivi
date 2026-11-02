@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { prefersReducedMotion } from '@/lib/motion';
 import s from './MaterialWall.module.css';
+import { webglFast } from '@/lib/three/caps';
 
 /**
  * "Feel the material": five surfaces rendered live in one raw WebGL fragment shader
@@ -169,7 +170,7 @@ export function MaterialWall({ labels, hint, keys, inLabel, fallback, rtl, title
   useEffect(() => {
     const canvas = ref.current;
     if (!canvas) return;
-    const gl = canvas.getContext('webgl', { antialias: false, alpha: false, powerPreference: 'high-performance' });
+    const gl = webglFast() ? canvas.getContext('webgl', { antialias: false, alpha: false, powerPreference: 'high-performance', failIfMajorPerformanceCaveat: true }) : null;
     if (!gl) {
       setSupported(false);
       return;

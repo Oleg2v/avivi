@@ -1,4 +1,5 @@
 import 'server-only';
+import { createHmac } from 'node:crypto';
 /**
  * Lead pipeline (server). Each lead is forwarded to LEAD_WEBHOOK_URL (CRM, Make, Zapier…)
  * and stored either in Upstash/Vercel KV Redis (if configured) or in memory (demo).
@@ -73,13 +74,16 @@ export async function forwardToWebhook(lead: StoredLead): Promise<boolean> {
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), 6000);
   try {
+    const body = JSON.stringify({ source: 'avivi-concept', ...lead });
+    const secret = process.env.LEAD_WEBHOOK_SECRET;
     const res = await fetch(url, {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
-        ...(process.env.LEAD_WEBHOOK_SECRET ? { 'x-avivi-signature': process.env.LEAD_WEBHOOK_SECRET } : {}),
+        // HMAC-SHA256 of the raw body, so the receiver can verify the sender.
+        ...(secret ? { 'x-avivi-signature': `sha256=${createHmac('sha256', secret).update(body).digest('hex')}` } : {}),
       },
-      body: JSON.stringify({ source: 'avivi-concept', ...lead }),
+      body,
       signal: ctrl.signal,
     });
     return res.ok;

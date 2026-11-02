@@ -1,0 +1,9 @@
+Fonts in this folder are licensed under the SIL Open Font License, Version 1.1
+(https://openfontlicense.org). Each file keeps its copyright and license notice in its metadata.
+Subsets were downloaded from Google Fonts.
+
+Frank Ruhl Libre   Hebrew display     Copyright The Frank Ruhl Libre Project Authors
+Heebo              Hebrew UI          Copyright The Heebo Project Authors
+Fraunces           Latin display      Copyright The Fraunces Project Authors
+Inter Tight        Latin/Cyrillic UI  Copyright The Inter Project Authors
+Literata           Cyrillic display   Copyright The Literata Project Authors

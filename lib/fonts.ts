@@ -1,50 +1,31 @@
-import { Frank_Ruhl_Libre, Heebo, Fraunces, Inter_Tight, Literata } from 'next/font/google';
 import type { Locale } from './i18n';
 
 /**
- * Hebrew: Frank Ruhl Libre (display) + Heebo (UI). Preloaded: Hebrew is the default.
+ * Fonts (all SIL Open Font License, self-hosted in public/fonts, faces in app/fonts.css):
+ * Hebrew: Frank Ruhl Libre (display) + Heebo (UI).
  * English/French: Fraunces (display, warm optical sizes) + Inter Tight (UI).
  * Russian: Literata (display with Cyrillic) + Inter Tight (UI, Cyrillic).
- * Fallback metrics are adjusted automatically, so font swaps cause no layout shift.
+ * Each locale preloads only its own files, so first paint already uses the right faces.
  */
-const frank = Frank_Ruhl_Libre({
-  subsets: ['hebrew', 'latin'],
-  variable: '--f-display-he',
-  display: 'swap',
-});
-const heebo = Heebo({
-  subsets: ['hebrew', 'latin'],
-  variable: '--f-ui-he',
-  display: 'swap',
-});
-const fraunces = Fraunces({
-  subsets: ['latin', 'latin-ext'],
-  variable: '--f-display-latin',
-  axes: ['opsz', 'SOFT'],
-  display: 'swap',
-  preload: false,
-});
-const interTight = Inter_Tight({
-  subsets: ['latin', 'latin-ext', 'cyrillic'],
-  variable: '--f-ui-latin',
-  display: 'swap',
-  preload: false,
-});
-const literata = Literata({
-  subsets: ['cyrillic', 'latin'],
-  variable: '--f-display-cyr',
-  axes: ['opsz'],
-  display: 'swap',
-  preload: false,
-});
-
 export function fontClasses(locale: Locale): string {
   switch (locale) {
     case 'he':
-      return `${frank.variable} ${heebo.variable} script-he`;
+      return 'script-he';
     case 'ru':
-      return `${literata.variable} ${interTight.variable} script-cyr`;
+      return 'script-cyr';
     default:
-      return `${fraunces.variable} ${interTight.variable} script-latin`;
+      return 'script-latin';
+  }
+}
+
+/** Font files to preload for a locale (the faces that carry the first screen). */
+export function fontPreloads(locale: Locale): string[] {
+  switch (locale) {
+    case 'he':
+      return ['/fonts/frank-ruhl-libre-hebrew.woff2', '/fonts/frank-ruhl-libre-latin.woff2', '/fonts/heebo-hebrew.woff2', '/fonts/heebo-latin.woff2'];
+    case 'ru':
+      return ['/fonts/literata-cyrillic.woff2', '/fonts/inter-tight-cyrillic.woff2', '/fonts/inter-tight-latin.woff2'];
+    default:
+      return ['/fonts/fraunces-latin.woff2', '/fonts/inter-tight-latin.woff2'];
   }
 }

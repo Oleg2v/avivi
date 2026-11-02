@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import { prefersReducedMotion } from '@/lib/motion';
-import { observeSize, observeVisibility, webglAvailable } from '@/lib/three/core';
+import { observeSize, observeVisibility, webglFast } from '@/lib/three/caps';
 import s from './Smart.module.css';
 
 type Scene = { setProgress: (p: number) => void; pick: (x: number, y: number, r: DOMRect) => string | null; resize: (w: number, h: number) => void; start: () => void; stop: () => void; snap: (p: number) => void; dispose: () => void };
@@ -33,7 +33,7 @@ export function SmartKitchen3D({
     const c = canvas.current;
     if (!sec || !c) return;
     const reduce = prefersReducedMotion();
-    if (!webglAvailable()) {
+    if (!webglFast()) {
       setMode('fallback');
       return;
     }

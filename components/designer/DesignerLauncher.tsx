@@ -35,6 +35,7 @@ export function DesignerLauncher() {
         className="designer-launcher"
         aria-haspopup="dialog"
         aria-expanded={open}
+        aria-label={t.designer.launcher}
         onClick={() => {
           setMounted(true);
           setOpen(true);

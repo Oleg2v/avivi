@@ -4,30 +4,9 @@
  */
 import * as THREE from 'three';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+import { deviceTier } from './caps';
 
-export function webglAvailable(): boolean {
-  try {
-    const c = document.createElement('canvas');
-    return !!(c.getContext('webgl2') || c.getContext('webgl'));
-  } catch {
-    return false;
-  }
-}
-
-export function isMobileViewport(): boolean {
-  return typeof window !== 'undefined' && window.matchMedia('(max-width: 760px)').matches;
-}
-
-/** Rough device class used to choose shadow resolution and DPR. */
-export function deviceTier(): 'low' | 'mid' | 'high' {
-  if (typeof navigator === 'undefined') return 'mid';
-  const cores = navigator.hardwareConcurrency || 4;
-  const mem = (navigator as Navigator & { deviceMemory?: number }).deviceMemory || 4;
-  const mobile = isMobileViewport();
-  if (mobile && (cores <= 4 || mem <= 3)) return 'low';
-  if (mobile) return 'mid';
-  return cores >= 8 ? 'high' : 'mid';
-}
+export { webglAvailable, webglFast, isMobileViewport, deviceTier, observeVisibility, observeSize } from './caps';
 
 export interface RendererOptions {
   canvas: HTMLCanvasElement;
@@ -71,22 +50,6 @@ export function createEnvironment(renderer: THREE.WebGLRenderer): THREE.Texture 
   });
   pmrem.dispose();
   return rt.texture;
-}
-
-/** Calls cb(true/false) as the element enters/leaves the viewport (with a margin). */
-export function observeVisibility(el: Element, cb: (visible: boolean) => void, rootMargin = '120px'): () => void {
-  const io = new IntersectionObserver((entries) => entries.forEach((e) => cb(e.isIntersecting)), { rootMargin });
-  io.observe(el);
-  return () => io.disconnect();
-}
-
-export function observeSize(el: Element, cb: (w: number, h: number) => void): () => void {
-  const ro = new ResizeObserver((entries) => {
-    const r = entries[0]?.contentRect;
-    if (r) cb(Math.max(1, Math.round(r.width)), Math.max(1, Math.round(r.height)));
-  });
-  ro.observe(el);
-  return () => ro.disconnect();
 }
 
 /** Dispose every geometry, material and texture under an object. */

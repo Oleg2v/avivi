@@ -62,6 +62,7 @@ export function IsraelMap({
       {branches.map((b) => {
         const [x, y] = project(b.lon, b.lat);
         const isSel = selected === b.id;
+        const accName = `${names[b.id]}${b.isNew && newLabel ? ` · ${newLabel}` : ''}`;
         const content = (
           <>
             <circle cx={x} cy={y} r={isSel ? 9 : 6} className={s.dot} />
@@ -82,7 +83,7 @@ export function IsraelMap({
               role={focusable ? 'button' : undefined}
               tabIndex={focusable ? 0 : -1}
               aria-pressed={focusable ? isSel : undefined}
-              aria-label={focusable ? names[b.id] : undefined}
+              aria-label={focusable ? accName : undefined}
               onClick={() => onSelect(b.id)}
               onKeyDown={(e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
@@ -96,7 +97,7 @@ export function IsraelMap({
           );
         }
         return (
-          <a key={b.id} href={hrefFor ? hrefFor(b.id) : `#${b.id}`} className={s.point} aria-label={names[b.id]}>
+          <a key={b.id} href={hrefFor ? hrefFor(b.id) : `#${b.id}`} className={s.point} aria-label={accName}>
             {content}
           </a>
         );

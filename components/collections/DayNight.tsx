@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import type { Finish } from '@/lib/data/collections';
 import { prefersReducedMotion } from '@/lib/motion';
-import { observeSize, observeVisibility, webglAvailable } from '@/lib/three/core';
+import { observeSize, observeVisibility, webglFast } from '@/lib/three/caps';
 import { Icon } from '@/components/ui/Icon';
 import s from './DayNight.module.css';
 
@@ -34,7 +34,7 @@ export function DayNight({
     const el = wrap.current;
     const c = canvas.current;
     if (!el || !c) return;
-    if (!webglAvailable()) {
+    if (!webglFast()) {
       setState('fallback');
       return;
     }

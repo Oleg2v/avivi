@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useRef } from 'react';
 import { prefersReducedMotion } from '@/lib/motion';
-import { webglAvailable, observeSize, observeVisibility } from '@/lib/three/core';
+import { webglFast, observeSize, observeVisibility } from '@/lib/three/caps';
 
 /**
  * Drives the hero: reads scroll progress through the pinned section, feeds it to the
@@ -76,7 +76,7 @@ export function HeroCanvas({ label, className }: { label: string; className?: st
     cleanups.push(() => window.removeEventListener('scroll', onScroll));
     overlay(progress());
 
-    if (!webglAvailable()) {
+    if (!webglFast()) {
       section.dataset.mode = 'drawings';
       return () => cleanups.forEach((c) => c());
     }
