@@ -17,7 +17,8 @@ export interface Branch {
 export const branches: Branch[] = [
   { id: 'karmiel', lat: 32.919, lon: 35.295, factory: true, mapQuery: { he: 'אביבי מטבחים כרמיאל', en: 'Avivi Kitchens Karmiel' } },
   { id: 'kiryat-ata', lat: 32.809, lon: 35.106, isNew: true, mapQuery: { he: 'אביבי מטבחים קריית אתא', en: 'Avivi Kitchens Kiryat Ata' } },
-  { id: 'herzliya', lat: 32.163, lon: 34.792, mapQuery: { he: 'אביבי מטבחים הרצליה פיתוח', en: 'Avivi Kitchens Herzliya Pituach' } },
+  // Herzliya Pituach sits on the shore; the dot is drawn a little inland so it never covers the coastline.
+  { id: 'herzliya', lat: 32.163, lon: 34.83, mapQuery: { he: 'אביבי מטבחים הרצליה פיתוח', en: 'Avivi Kitchens Herzliya Pituach' } },
   { id: 'bnei-brak', lat: 32.084, lon: 34.834, mapQuery: { he: 'אביבי מטבחים בני ברק', en: 'Avivi Kitchens Bnei Brak' } },
   { id: 'rishon', lat: 31.964, lon: 34.804, mapQuery: { he: 'אביבי מטבחים ראשון לציון', en: 'Avivi Kitchens Rishon LeZion' } },
   { id: 'bnei-darom', lat: 31.819, lon: 34.693, factory: true, mapQuery: { he: 'אביבי מטבחים בני דרום', en: 'Avivi Kitchens Bnei Darom' } },
