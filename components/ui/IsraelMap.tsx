@@ -15,6 +15,7 @@ export function IsraelMap({
   newLabel,
   factoryLabel,
   hrefFor,
+  focusable = true,
 }: {
   names: Record<BranchId, string>;
   label: string;
@@ -23,10 +24,12 @@ export function IsraelMap({
   newLabel?: string;
   factoryLabel?: string;
   hrefFor?: (id: BranchId) => string;
+  /** false when an accessible list next to the map offers the same choice (pointer shortcut only). */
+  focusable?: boolean;
 }) {
   const lats = [31.6, 31.8, 32.0, 32.2, 32.4, 32.6, 32.8, 33.0];
   return (
-    <svg className={s.map} viewBox={`-60 -20 ${coast.width + 120} ${coast.height + 50}`} role="group" aria-label={label}>
+    <svg className={s.map} viewBox={`-60 -20 ${coast.width + 120} ${coast.height + 50}`} role={focusable ? 'group' : undefined} aria-label={focusable ? label : undefined} aria-hidden={focusable ? undefined : true}>
       <defs>
         <pattern id="sea" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
           <line x1="0" y1="0" x2="0" y2="8" className={s.hatch} />
@@ -76,10 +79,10 @@ export function IsraelMap({
               key={b.id}
               className={s.point}
               data-selected={isSel ? '1' : '0'}
-              role="button"
-              tabIndex={0}
-              aria-pressed={isSel}
-              aria-label={names[b.id]}
+              role={focusable ? 'button' : undefined}
+              tabIndex={focusable ? 0 : -1}
+              aria-pressed={focusable ? isSel : undefined}
+              aria-label={focusable ? names[b.id] : undefined}
               onClick={() => onSelect(b.id)}
               onKeyDown={(e) => {
                 if (e.key === 'Enter' || e.key === ' ') {

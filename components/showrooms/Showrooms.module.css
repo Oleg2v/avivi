@@ -1,0 +1,34 @@
+.layout { display: grid; gap: clamp(40px, 6vw, 96px); padding-block-end: var(--section); }
+@media (min-width: 1000px) {
+  .layout { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: start; }
+  .mapCol { position: sticky; inset-block-start: calc(var(--header-h) + 32px); }
+}
+.mapCol { display: grid; gap: 16px; justify-items: center; }
+.mapCol svg { max-inline-size: 420px; }
+@media (max-width: 999px) { .mapCol svg { max-inline-size: 300px; } }
+.mapNote { font-size: 0.8125rem; color: var(--muted); text-align: center; max-inline-size: 36ch; }
+.list { list-style: none; padding: 0; margin: 0; border-block-start: 1px solid var(--line); }
+.branch {
+  display: grid;
+  gap: 14px;
+  padding-block: clamp(26px, 3.4vw, 40px);
+  border-block-end: 1px solid var(--line);
+  scroll-margin-block-start: calc(var(--header-h) + 24px);
+}
+.branch:target { background: linear-gradient(90deg, rgba(201, 162, 122, 0.12), transparent 70%); }
+[dir='rtl'] .branch:target { background: linear-gradient(270deg, rgba(201, 162, 122, 0.12), transparent 70%); }
+.top { display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+.name { font-family: var(--f-display); font-size: var(--fs-l); line-height: 1; font-weight: 380; }
+.tags { display: flex; gap: 8px; }
+.tag { font-size: 0.6875rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 3px 8px; border: 1px solid var(--line-strong); border-radius: 999px; color: var(--muted); }
+.tagNew { border-color: var(--brass); color: var(--accent); }
+.area { color: var(--muted); max-inline-size: 48ch; }
+.facts { display: grid; gap: 8px 32px; margin: 0; }
+@media (min-width: 640px) { .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.facts div { display: grid; gap: 4px; }
+.facts dt { font-size: 0.75rem; color: var(--muted); letter-spacing: 0.06em; }
+.facts dd { margin: 0; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 0.95rem; }
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; padding-block-start: 4px; }
+.cta { display: grid; gap: 20px; padding: clamp(28px, 5vw, 64px); background: var(--surface); margin-block-end: var(--section); }
+.cta h2 { font-size: var(--fs-m); max-inline-size: 22ch; }
+.ctaRow { display: flex; flex-wrap: wrap; gap: 10px; }
