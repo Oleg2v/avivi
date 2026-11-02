@@ -201,38 +201,39 @@ export function SmartTeaser({ locale, t }: P) {
           </Link>
         </div>
         <div className={`${s.smartDrawing} reveal`} aria-hidden="true">
-          <svg viewBox="0 0 520 420">
-            <g className={s.cab}>
-              <rect x="60" y="40" width="300" height="340" />
-              <line x1="60" y1="380" x2="360" y2="380" />
-            </g>
-            <g className={`${s.drawer} ${s.d1}`}>
-              <rect x="64" y="44" width="292" height="90" />
-              <rect x="64" y="44" width="292" height="90" className={s.drawerBox} transform="translate(0 0)" />
-              <line x1="190" y1="70" x2="230" y2="70" />
-            </g>
-            <g className={`${s.drawer} ${s.d2}`}>
-              <rect x="64" y="138" width="292" height="114" />
-              <line x1="190" y1="166" x2="230" y2="166" />
-            </g>
-            <g className={`${s.drawer} ${s.d3}`}>
-              <rect x="64" y="256" width="292" height="120" />
-              <line x1="190" y1="284" x2="230" y2="284" />
-            </g>
+          {/* Side section of a base unit: full-extension drawers slide out to the front. */}
+          <svg viewBox="0 0 560 430">
             <g className={s.dims}>
-              <line x1="60" y1="400" x2="360" y2="400" />
-              <line x1="60" y1="394" x2="60" y2="406" />
-              <line x1="360" y1="394" x2="360" y2="406" />
-              <text x="210" y="415" textAnchor="middle">
-                600
-              </text>
-              <line x1="390" y1="40" x2="390" y2="380" />
-              <line x1="384" y1="40" x2="396" y2="40" />
-              <line x1="384" y1="380" x2="396" y2="380" />
-              <text x="402" y="214">
+              <line x1="48" y1="40" x2="48" y2="380" />
+              <line x1="42" y1="40" x2="54" y2="40" />
+              <line x1="42" y1="380" x2="54" y2="380" />
+              <text x="34" y="210" textAnchor="middle" transform="rotate(-90 34 210)">
                 740
               </text>
+              <line x1="80" y1="404" x2="340" y2="404" />
+              <line x1="80" y1="398" x2="80" y2="410" />
+              <line x1="340" y1="398" x2="340" y2="410" />
+              <text x="210" y="424" textAnchor="middle">
+                560
+              </text>
             </g>
+            <g className={s.cab}>
+              <rect x="80" y="40" width="260" height="340" />
+              <line x1="80" y1="380" x2="340" y2="380" />
+            </g>
+            {(
+              [
+                ['d1', 44, 140],
+                ['d2', 144, 252],
+                ['d3', 256, 376],
+              ] as const
+            ).map(([cls, y0, y1]) => (
+              <g key={cls} className={`${s.drawer} ${s[cls]}`}>
+                <rect className={s.drawerBox} x="98" y={y0 + 14} width="230" height={(y1 - y0) * 0.72} />
+                <rect className={s.drawerFront} x="330" y={y0} width="10" height={y1 - y0} />
+                <line className={s.drawerKnob} x1="340" y1={y0 + 18} x2="349" y2={y0 + 18} />
+              </g>
+            ))}
           </svg>
           <ol className={s.principles}>
             {t.smart.principles.map((p, i) => (

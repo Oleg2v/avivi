@@ -98,12 +98,15 @@
 .smartDrawing svg { inline-size: 100%; max-inline-size: 560px; overflow: visible; }
 .smartDrawing rect, .smartDrawing line { fill: none; stroke: currentColor; stroke-width: 1.2; vector-effect: non-scaling-stroke; }
 .cab rect { opacity: 0.5; }
-.drawer rect { fill: rgba(201, 162, 122, 0.12); stroke: var(--oak-2); }
+.drawer rect { stroke: var(--oak-2); }
+.drawerBox { fill: rgba(201, 162, 122, 0.12); }
+.smartDrawing .drawerFront { fill: rgba(201, 162, 122, 0.45); }
+.smartDrawing .drawerKnob { stroke: currentColor; stroke-width: 2; }
 .drawer { transition: transform 1.6s var(--ease); }
-.smartDrawing:global(.is-in) .d1 { transform: translate(70px, -6px); transition-delay: 0.3s; }
-.smartDrawing:global(.is-in) .d2 { transform: translate(110px, -10px); transition-delay: 0.5s; }
-.smartDrawing:global(.is-in) .d3 { transform: translate(40px, -4px); transition-delay: 0.7s; }
-:global([dir='rtl']) .smartDrawing:global(.is-in) .d1 { transform: translate(70px, -6px); }
+/* Drawers slide straight out of the front, each to a different depth (full extension at most). */
+.smartDrawing:global(.is-in) .d1 { transform: translateX(110px); transition-delay: 0.3s; }
+.smartDrawing:global(.is-in) .d2 { transform: translateX(170px); transition-delay: 0.5s; }
+.smartDrawing:global(.is-in) .d3 { transform: translateX(70px); transition-delay: 0.7s; }
 .dims text { fill: var(--muted); font: 500 11px var(--f-ui); letter-spacing: 0.08em; }
 .dims line { opacity: 0.5; }
 .principles { list-style: none; display: grid; gap: 0; counter-reset: p; }
