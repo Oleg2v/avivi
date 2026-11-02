@@ -1163,7 +1163,7 @@ export const ru: Dict = {
       password: 'Пароль',
       submit: 'Войти',
       wrong: 'Неверный пароль.',
-      hint: 'Демо: пароль задаётся в окружении (INBOX_PASSWORD).',
+      hint: 'Пароль выдаёт администратор сайта.',
     },
     kpis: {
       meetings: 'Записей в салоны',

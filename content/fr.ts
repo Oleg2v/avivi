@@ -1163,7 +1163,7 @@ export const fr: Dict = {
       password: 'Mot de passe',
       submit: 'Entrer',
       wrong: 'Mot de passe incorrect.',
-      hint: 'Démo : le mot de passe est défini dans l’environnement (INBOX_PASSWORD).',
+      hint: 'Le mot de passe est fourni par l’administrateur du site.',
     },
     kpis: {
       meetings: 'Visites réservées',

@@ -1176,7 +1176,7 @@ export const he: Dict = {
       password: 'סיסמה',
       submit: 'כניסה',
       wrong: 'הסיסמה לא נכונה.',
-      hint: 'דמו: הסיסמה מוגדרת בסביבה (INBOX_PASSWORD).',
+      hint: 'את הסיסמה מקבלים ממנהל האתר.',
     },
     kpis: {
       meetings: 'ביקורים שתואמו',

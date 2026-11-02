@@ -1177,7 +1177,7 @@ export const en = {
       password: 'Password',
       submit: 'Enter',
       wrong: 'That password didn’t work.',
-      hint: 'Demo: the password is set in the environment (INBOX_PASSWORD).',
+      hint: 'Ask the site administrator for the password.',
     },
     kpis: {
       meetings: 'Showroom visits booked',
