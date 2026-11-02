@@ -182,6 +182,15 @@ RAW_DIR=renders-raw npm run assets:images
 - Self-hosted fonts (SIL OFL), each language preloads only its own files so the first paint already uses the right faces; images via `next/image` with blur placeholders and fixed aspect ratios. Measured layout shift is 0 on the pages tested.
 - Lead forms validate on the client and the server, and offer a WhatsApp handoff.
 
+**Measured with Lighthouse 12** (production build, headless Chromium in a shared container, so expect a few points of noise):
+
+| | Performance | Accessibility | Best practices | LCP | CLS |
+|---|---|---|---|---|---|
+| Desktop (home, collection, booking, designer, story) | 99–100 | 100 | 100 | 0.7–0.9 s | 0 |
+| Mobile, simulated slow 4G and 4× CPU (same pages) | 92–96 | 100 | 100 | 2.5–3.2 s | 0 |
+
+SEO scores are lower only because every page is deliberately `noindex`. In this container WebGL runs in software, so the measured pages use the drawn and still versions of the 3D scenes; on a device with a GPU the scenes load after first paint and pause when off-screen.
+
 ## Scripts
 
 | Command | Does |

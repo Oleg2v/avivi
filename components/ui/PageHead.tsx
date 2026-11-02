@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { href, type Locale } from '@/lib/i18n';
 import s from './PageHead.module.css';
 
-/** Interior page header: breadcrumb, title set line by line, lead paragraph. */
+/** Interior page header: breadcrumb, title and lead. Visible at first paint (CSS-only entrance, no JS gate). */
 export function PageHead({
   locale,
   home,
@@ -38,12 +38,8 @@ export function PageHead({
         </ol>
       </nav>
       {kicker ? <p className="label accent">{kicker}</p> : null}
-      <h1 className={`lines ${s.title}`}>
-        <span className="line">
-          <span>{title}</span>
-        </span>
-      </h1>
-      {intro ? <p className={`lead muted reveal ${s.intro}`}>{intro}</p> : null}
+      <h1 className={`rise ${s.title}`}>{title}</h1>
+      {intro ? <p className={`lead muted rise rise-2 ${s.intro}`}>{intro}</p> : null}
     </>
   );
   if (side) {

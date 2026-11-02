@@ -9,7 +9,20 @@
 .canvas { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; opacity: 0; transition: opacity 1s var(--ease); }
 .wrap[data-state='ready'] .canvas { opacity: 1; }
 .wrap[data-state='fallback'] .canvas { display: none; }
-.stage > :global(figure) { position: absolute; inset: 0; }
+.still { position: absolute; inset: 0; }
+.stillImg { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; object-fit: cover; filter: brightness(calc(1.03 - var(--t) * 0.3)) saturate(calc(1 - var(--t) * 0.25)); }
+.still[data-night='1'] .stillImg { filter: none; }
+.stillNight { opacity: clamp(0, calc((var(--t) - 0.3) * 1.75), 1); }
+.tint { position: absolute; inset: 0; background: linear-gradient(180deg, #13203a, #1d1610); mix-blend-mode: multiply; opacity: calc(var(--t) * 0.62); }
+.glow {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(62% 7% at 50% 46%, rgba(255, 196, 128, 0.5), transparent 72%),
+    radial-gradient(46% 24% at 50% 62%, rgba(255, 184, 112, 0.22), transparent 70%);
+  mix-blend-mode: screen;
+  opacity: clamp(0, calc((var(--t) - 0.5) * 2.4), 1);
+}
 .timeBadge {
   position: absolute;
   inset-block-start: 14px;

@@ -632,3 +632,10 @@ html.lenis, html.lenis body { block-size: auto; }
 .switch[aria-checked='true'] .switch-thumb { transform: translateX(20px); }
 [dir='rtl'] .switch[aria-checked='true'] .switch-thumb { transform: translateX(-20px); }
 .switch-label { min-inline-size: 2.5em; }
+
+/* Above-the-fold entrance that never waits for JavaScript: painted at first frame, slight rise. */
+@keyframes rise { from { transform: translate3d(0, 0.32em, 0); } }
+.rise { animation: rise 1s var(--ease) both; }
+.rise-2 { animation-delay: 0.08s; }
+@media (prefers-reduced-motion: reduce) { .rise { animation: none; } }
+html[data-a11y-motion='reduce'] .rise { animation: none; }

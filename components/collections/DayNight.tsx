@@ -1,10 +1,18 @@
 'use client';
+import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import type { Finish } from '@/lib/data/collections';
 import { prefersReducedMotion } from '@/lib/motion';
 import { observeSize, observeVisibility, webglFast } from '@/lib/three/caps';
 import { Icon } from '@/components/ui/Icon';
 import s from './DayNight.module.css';
+
+interface Still {
+  src: string;
+  w: number;
+  h: number;
+  blur?: string;
+}
 
 type Scene = { setTime: (t: number) => void; setParallax: (x: number, y: number) => void; resize: (w: number, h: number) => void; start: () => void; stop: () => void; dispose: () => void };
 
@@ -16,12 +24,13 @@ export function DayNight({
   finish,
   dark,
   labels,
-  fallbackImage,
+  still,
 }: {
   finish: Finish;
   dark: boolean;
   labels: { title: string; hint: string; morning: string; noon: string; evening: string; night: string; timeOfDay: string; canvas: string; play: string };
-  fallbackImage?: React.ReactNode;
+  /** Without fast WebGL: the concept render, lit by the slider (a real evening render when there is one). */
+  still?: { day: Still; night?: Still; alt: string };
 }) {
   const wrap = useRef<HTMLDivElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
@@ -106,7 +115,19 @@ export function DayNight({
         const r = e.currentTarget.getBoundingClientRect();
         scene.current?.setParallax(((e.clientX - r.left) / r.width - 0.5) * 2, ((e.clientY - r.top) / r.height - 0.5) * -2);
       }}>
-        {state === 'fallback' ? fallbackImage : null}
+        {state === 'fallback' && still ? (
+          <div className={s.still} role="img" aria-label={still.alt} data-night={still.night ? '1' : undefined}>
+            <Image className={s.stillImg} src={still.day.src} alt="" width={still.day.w} height={still.day.h} placeholder={still.day.blur ? 'blur' : 'empty'} blurDataURL={still.day.blur} sizes="(max-width: 1720px) 100vw, 1600px" />
+            {still.night ? (
+              <Image className={`${s.stillImg} ${s.stillNight}`} src={still.night.src} alt="" width={still.night.w} height={still.night.h} sizes="(max-width: 1720px) 100vw, 1600px" />
+            ) : (
+              <>
+                <span className={s.tint} />
+                <span className={s.glow} />
+              </>
+            )}
+          </div>
+        ) : null}
         <canvas ref={canvas} className={s.canvas} role="img" aria-label={labels.canvas} />
         <div className={s.timeBadge} aria-hidden="true">
           <span className="nums">{clock}</span>

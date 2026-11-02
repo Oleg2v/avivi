@@ -22,10 +22,10 @@ export function fontClasses(locale: Locale): string {
 export function fontPreloads(locale: Locale): string[] {
   switch (locale) {
     case 'he':
-      return ['/fonts/frank-ruhl-libre-hebrew.woff2', '/fonts/frank-ruhl-libre-latin.woff2', '/fonts/heebo-hebrew.woff2', '/fonts/heebo-latin.woff2'];
+      return ['/fonts/frank-ruhl-libre-hebrew.woff2', '/fonts/frank-ruhl-libre-latin-core.woff2', '/fonts/heebo-hebrew.woff2', '/fonts/heebo-latin-core.woff2'];
     case 'ru':
-      return ['/fonts/literata-cyrillic.woff2', '/fonts/inter-tight-cyrillic.woff2', '/fonts/inter-tight-latin.woff2'];
+      return ['/fonts/literata-cyrillic-core.woff2', '/fonts/inter-tight-cyrillic-core.woff2', '/fonts/inter-tight-latin-core.woff2'];
     default:
-      return ['/fonts/fraunces-latin.woff2', '/fonts/inter-tight-latin.woff2'];
+      return ['/fonts/fraunces-latin-core.woff2', '/fonts/inter-tight-latin-core.woff2'];
   }
 }

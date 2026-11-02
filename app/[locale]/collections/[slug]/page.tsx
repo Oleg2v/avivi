@@ -127,9 +127,11 @@ export default async function CollectionPage({ params }: Props) {
               canvas: `${L.view3d}: ${it.name}. ${it.intro}`,
               play: L.dayNight,
             }}
-            fallbackImage={
-              <PhotoSlot name={imgs[0]} alt={it.art[0]} art={it.art[0]} artLabel={t.meta.artDirection} renderLabel={t.meta.render} slotLabel={t.meta.photoSlot} ratio="16 / 9" />
-            }
+            still={{
+              day: render(dark ? 'room-b-dark' : imgs[0]) ?? hero!,
+              night: dark ? render('room-b-dark-evening') : undefined,
+              alt: `${it.name}: ${it.art[0]}. ${t.meta.render}.`,
+            }}
           />
         </div>
       </section>
